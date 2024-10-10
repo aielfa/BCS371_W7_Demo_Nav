@@ -62,39 +62,41 @@ fun BasicOperations(name: String, modifier: Modifier = Modifier) {
         },
             modifier= Modifier.padding(start = 40.dp, end = 40.dp)) {
             Icon( imageVector = Icons.Default.LocationOn, contentDescription = "Location")
-            Text("Show me  Farmingdale")
+            //Spacer(modifier = Modifier.padding(10.dp))
+            Text("Show me  Farmingdale",modifier = Modifier.padding(start=10.dp))
         }
         HorizontalDivider(thickness = DividerDefaults.Thickness)
 
         Button( onClick = {
             val newInt = Intent(Intent.ACTION_VIEW)
-            // ToDo 1: create implicit intent to open a web page or call a phone number
+            newInt.data = Uri.parse("tel:1234567890")
             context.startActivity(newInt)
         },
             modifier= Modifier.padding(start = 40.dp, end = 40.dp)) {
             Icon( imageVector = Icons.Default.Phone, contentDescription = "Phone")
-            Text("Call Me")
+            //Spacer(modifier = Modifier.padding(10.dp))
+            Text("Call Me",modifier = Modifier.padding(start=10.dp))
         }
 
         HorizontalDivider(thickness = DividerDefaults.Thickness)
 
         Button( onClick = {
-            // ToDo 2: create explicit intent to open a new activity
             context.startActivity(Intent(context, MainActivity::class.java))
         },
             modifier= Modifier.padding(start = 40.dp, end = 40.dp)) {
             Icon( imageVector = Icons.Default.Info, contentDescription = "Phone")
-            Text("Go To activity 2")
+            //Spacer(modifier = Modifier.padding(10.dp))
+            Text("Go To activity 2",modifier = Modifier.padding(start=10.dp))
         }
 
-        // ToDo 3: Change the spacing between the icons and text to be 10dp
+
         // ToDo 4: Add a horizontal divider between the buttons
 
 
         // ToDo 5: This switch is not working fix it
         Switch(
             checked = true,
-            onCheckedChange = {  },
+            onCheckedChange = { },
             modifier = Modifier.padding(10.dp),
         )
         // ToDo 6: when the switch is off, disable the buttons
