@@ -90,7 +90,7 @@ fun BasicOperations(name: String, modifier: Modifier = Modifier) {
         }
 
 
-        // ToDo 4: Add a horizontal divider between the buttons
+        HorizontalDivider(thickness = DividerDefaults.Thickness)
 
 
         // ToDo 5: This switch is not working fix it
