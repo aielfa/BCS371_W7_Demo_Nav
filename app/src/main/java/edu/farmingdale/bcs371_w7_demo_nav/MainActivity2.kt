@@ -53,6 +53,7 @@ class MainActivity2 : ComponentActivity() {
 fun BasicOperations(name: String, modifier: Modifier = Modifier) {
     val  context = LocalContext.current
     var isSwitchChecked by remember { mutableStateOf(true) }
+
     Column {
         Spacer(modifier = Modifier.padding(50.dp))
         Button( onClick = {
@@ -60,7 +61,7 @@ fun BasicOperations(name: String, modifier: Modifier = Modifier) {
             newInt.setData(Uri.parse("geo:0,0?q=Farmingdale State College, NY"))
             context.startActivity(newInt)
         },
-            modifier= Modifier.padding(start = 40.dp, end = 40.dp)) {
+            modifier= Modifier.padding(start = 40.dp, end = 40.dp),enabled = isSwitchChecked) {
             Icon( imageVector = Icons.Default.LocationOn, contentDescription = "Location")
             //Spacer(modifier = Modifier.padding(10.dp))
             Text("Show me  Farmingdale",modifier = Modifier.padding(start=10.dp))
@@ -72,7 +73,7 @@ fun BasicOperations(name: String, modifier: Modifier = Modifier) {
             newInt.data = Uri.parse("tel:1234567890")
             context.startActivity(newInt)
         },
-            modifier= Modifier.padding(start = 40.dp, end = 40.dp)) {
+            modifier= Modifier.padding(start = 40.dp, end = 40.dp),enabled = isSwitchChecked) {
             Icon( imageVector = Icons.Default.Phone, contentDescription = "Phone")
             //Spacer(modifier = Modifier.padding(10.dp))
             Text("Call Me",modifier = Modifier.padding(start=10.dp))
@@ -83,7 +84,7 @@ fun BasicOperations(name: String, modifier: Modifier = Modifier) {
         Button( onClick = {
             context.startActivity(Intent(context, MainActivity::class.java))
         },
-            modifier= Modifier.padding(start = 40.dp, end = 40.dp)) {
+            modifier= Modifier.padding(start = 40.dp, end = 40.dp),enabled = isSwitchChecked) {
             Icon( imageVector = Icons.Default.Info, contentDescription = "Phone")
             //Spacer(modifier = Modifier.padding(10.dp))
             Text("Go To activity 2",modifier = Modifier.padding(start=10.dp))
@@ -92,14 +93,11 @@ fun BasicOperations(name: String, modifier: Modifier = Modifier) {
 
         HorizontalDivider(thickness = DividerDefaults.Thickness)
 
-
-        // ToDo 5: This switch is not working fix it
         Switch(
             checked = isSwitchChecked,
             onCheckedChange = { isSwitchChecked = it},
             modifier = Modifier.padding(10.dp),
         )
-        // ToDo 6: when the switch is off, disable the buttons
     }
 
 
