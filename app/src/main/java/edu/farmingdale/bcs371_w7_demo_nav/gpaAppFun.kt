@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 // ToDo 10: make this composable navigable and then add a button to navigate to a suitable screen
@@ -79,16 +80,25 @@ fun gpaappFun(navController: NavController) {
 
 
         if (gpa.isNotEmpty()) {
-            Text(text = "GPA: $gpa")
+            Text(text = "GPA: $gpa", modifier = Modifier.padding(top = 16.dp))
         }
 
 
+        Button(
+            onClick = { navController.navigate("pizza_party_screen") },
+            modifier = Modifier.padding(top = 16.dp).fillMaxWidth()
+        ) {
+            Text("Back to Pizza Party")
+        }
     }
 }
 
 
-fun calGPA(grade1: String, grade2: String, grade3: String): Double {
-    val grades = listOf(grade1.toDouble(), grade2.toDouble(), grade3.toDouble())
-    return grades.average()
+fun calGPA(grade1: String, grade2: String, grade3: String): Double? {
+    return try {
+        val grades = listOf(grade1.toDouble(), grade2.toDouble(), grade3.toDouble())
+        grades.average()
+    } catch (e: NumberFormatException) {
+        null
+    }
 }
-
