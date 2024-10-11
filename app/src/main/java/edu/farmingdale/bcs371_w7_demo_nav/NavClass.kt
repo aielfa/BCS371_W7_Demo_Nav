@@ -40,79 +40,70 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.delay
 
-
 @Composable
 fun Navigation() {
-    val navController= rememberNavController()
-    NavHost(navController = navController, startDestination = "splash_screen"  ){
-        composable("splash_screen"
-        ) {
-            SpalshScreen(navController)
-
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "splash_screen") {
+        composable("splash_screen") {
+            SplashScreen(navController)
         }
-
-        composable("first_screen"
-        ) {
+        composable("basic") {
+            BasicOperations(navController.toString())
+        }
+        composable("first_screen") {
             FirstScreen(navController)
-
         }
-
-
         composable("second_screen") {
             SecondScreen(navController)
         }
-
         composable("pizza_party_screen") {
             PizzaPartyScreen(navController)
         }
         composable("gpa_calculator_screen") {
             gpaappFun(navController)
         }
-
     }
-
 }
-
-
 
 @Composable
 fun FirstScreen(navController: NavController) {
-    Box (contentAlignment = Alignment.Center){
-        Column ( modifier = Modifier.padding(horizontal = 20.dp).wrapContentSize(),
+    Box(contentAlignment = Alignment.Center) {
+        Column(
+            modifier = Modifier.padding(horizontal = 20.dp).wrapContentSize(),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally){
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Text(text = "First Screen")
-
             Button(onClick = { navController.navigate("second_screen") }) {
-                Text(text ="Go to Second Screen")
+                Text(text = "Go to Second Screen")
             }
-
         }
     }
 }
-
-
-
 
 @Composable
 fun SecondScreen(navController: NavController) {
     var sliderValue by remember { mutableStateOf(0.5f) }
     var isChecked by remember { mutableStateOf(true) }
-    val context = LocalContext.current
-    Column ( modifier = Modifier.padding(horizontal = 20.dp),
+
+    Column(
+        modifier = Modifier.padding(horizontal = 20.dp),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally){
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Slider(
             value = sliderValue,
             onValueChange = { if (isChecked) sliderValue = it },
             enabled = isChecked,
             modifier = Modifier.fillMaxWidth()
         )
-
-        Text (fontSize = 20.sp, text = "Second Screen")
-
-        Button(onClick = { context.startActivity(Intent(context, MainActivity2::class.java)) }) {
-            Text(fontSize = 20.sp, text ="Go to other Activity")
+        Text(fontSize = 20.sp, text = "Second Screen")
+        Button(onClick = { navController.navigate("basic") }) {
+            Text(fontSize = 20.sp, text = "Go to Activity")
+        }
+        // Use navController for navigation
+        Button(onClick = { navController.navigate("pizza_party_screen") }) {
+            Text(fontSize = 20.sp, text = "Go to Pizza Party")
         }
 
         Checkbox(
@@ -121,26 +112,25 @@ fun SecondScreen(navController: NavController) {
             modifier = Modifier.padding(10.dp)
         )
     }
-
 }
 
 @Composable
-fun SpalshScreen(navController: NavController){
-    val scale= remember {
-        Animatable(0f, 1f)
-    }
-    LaunchedEffect(key1 = true) {
+fun SplashScreen(navController: NavController) {
+    val scale = remember { Animatable(0f) }
+    LaunchedEffect(Unit) {
         scale.animateTo(
             targetValue = 0.5f,
-            animationSpec = tween(durationMillis = 1000,0, easing = {
+            animationSpec = tween(durationMillis = 1000, easing = {
                 OvershootInterpolator(2f).getInterpolation(it)
-            }
-            ))
+            })
+        )
         delay(3000)
-        navController.navigate("first_screen")
+        navController.navigate("first_screen") {
+            popUpTo("splash_screen") { inclusive = true }
+        }
     }
 
-    Box (contentAlignment = Alignment.Center){
-        Image(painter = painterResource(id = R.drawable.fsclogo), contentDescription ="" )
+    Box(contentAlignment = Alignment.Center) {
+        Image(painter = painterResource(id = R.drawable.fsclogo), contentDescription = null)
     }
 }
