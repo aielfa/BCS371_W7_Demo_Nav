@@ -9,8 +9,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
-// ToDo 10: make this composable navigable and then add a button to navigate to a suitable screen
-
 @Composable
 fun gpaappFun(navController: NavController) {
 
